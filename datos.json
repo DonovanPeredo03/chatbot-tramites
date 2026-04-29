@@ -1,0 +1,50 @@
+[
+  {
+    "nombre": "rfc",
+    "palabras_clave": ["rfc", "sat", "registro federal"],
+    "respuestas": [
+      "Para sacar el RFC necesitas INE, CURP y comprobante de domicilio.",
+      "El RFC se tramita en el SAT con INE, CURP y comprobante de domicilio."
+    ]
+  },
+  {
+    "nombre": "ine",
+    "palabras_clave": ["ine", "credencial", "identificacion", "identificación"],
+    "respuestas": [
+      "Para tramitar tu INE necesitas acta de nacimiento y comprobante de domicilio.",
+      "Debes acudir al INE con tu acta de nacimiento y comprobante de domicilio."
+    ]
+  },
+  {
+    "nombre": "acta",
+    "palabras_clave": ["acta", "nacimiento", "acta de nacimiento"],
+    "respuestas": [
+      "Puedes obtener tu acta de nacimiento en línea o en el registro civil con tu CURP.",
+      "El acta de nacimiento se tramita en el registro civil o en línea."
+    ]
+  },
+  {
+    "nombre": "curp",
+    "palabras_clave": ["curp"],
+    "respuestas": [
+      "Puedes consultar o imprimir tu CURP en línea.",
+      "Tu CURP se obtiene fácilmente desde el portal del gobierno."
+    ]
+  },
+  {
+    "nombre": "costo",
+    "palabras_clave": ["costo", "precio", "cuanto cuesta", "cuánto cuesta"],
+    "respuestas": [
+      "La mayoría de los trámites son gratuitos.",
+      "Algunos trámites pueden tener costo dependiendo del estado."
+    ]
+  },
+  {
+    "nombre": "saludo",
+    "palabras_clave": ["hola", "buenas", "hey"],
+    "respuestas": [
+      "Hola, puedo ayudarte con trámites como RFC, INE, CURP o acta de nacimiento.",
+      "¡Hola! Pregunta sobre trámites como RFC, INE o CURP."
+    ]
+  }
+]

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Chatbot</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #e5ddd5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* CONTENEDOR */
+.chat-container {
+    width: 360px;
+    height: 600px;
+    background: #ece5dd;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* HEADER */
+.header {
+    background: #075e54;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* CHAT */
+.chat-box {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* MENSAJES */
+.mensaje {
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 70%;
+    position: relative;
+    font-size: 14px;
+}
+
+/* HORA */
+.hora {
+    font-size: 10px;
+    color: gray;
+    margin-top: 2px;
+    text-align: right;
+}
+
+.usuario {
+    background: #dcf8c6;
+    align-self: flex-end;
+}
+
+.bot {
+    background: white;
+    align-self: flex-start;
+}
+
+/* INPUT */
+.input-area {
+    display: flex;
+    background: #f0f0f0;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+}
+
+button {
+    background: #075e54;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+
+/* BOTONES */
+.opciones {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px;
+}
+
+.opciones button {
+    background: #25d366;
+    margin: 3px;
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+    <div class="header">🤖 Chatbot Trámites</div>
+
+    <div id="chat" class="chat-box"></div>
+
+    <div id="opciones" class="opciones"></div>
+
+    <div class="input-area">
+        <input id="mensaje" placeholder="Escribe un mensaje...">
+        <button onclick="enviar()">Enviar</button>
+    </div>
+</div>
+
+<script>
+
+// 🕒 Hora actual
+function hora() {
+    return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+}
+
+// 💬 Agregar mensaje
+function agregarMensaje(texto, tipo) {
+    const chat = document.getElementById('chat');
+    const div = document.createElement('div');
+
+    div.classList.add('mensaje', tipo);
+    div.innerHTML = `
+        ${texto}
+        <div class="hora">${hora()}</div>
+    `;
+
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+// ⏳ Escribiendo
+function escribiendo() {
+    agregarMensaje("Escribiendo...", "bot");
+}
+
+// ❌ quitar escribiendo
+function quitarEscribiendo() {
+    document.querySelectorAll('.bot').forEach(e => {
+        if (e.innerText.includes("Escribiendo")) e.remove();
+    });
+}
+
+// 🚀 Enviar mensaje
+async function enviar(textoManual = null) {
+    const input = document.getElementById('mensaje');
+    const texto = textoManual || input.value;
+
+    if (!texto) return;
+
+    agregarMensaje(texto, 'usuario');
+    input.value = '';
+
+    mostrarOpciones([]);
+
+    escribiendo();
+
+    const res = await fetch('http://localhost:3000/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mensaje: texto })
+    });
+
+    const data = await res.json();
+
+    quitarEscribiendo();
+
+    agregarMensaje(data.respuesta, 'bot');
+
+    sugerencias();
+}
+
+// 🔥 ENTER para enviar
+document.getElementById("mensaje").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") enviar();
+});
+
+// 🔘 Mostrar botones
+function mostrarOpciones(lista) {
+    const cont = document.getElementById('opciones');
+    cont.innerHTML = '';
+
+    lista.forEach(op => {
+        const btn = document.createElement('button');
+        btn.innerText = op;
+        btn.onclick = () => enviar(op);
+        cont.appendChild(btn);
+    });
+}
+
+// 💡 Sugerencias inteligentes
+function sugerencias() {
+    mostrarOpciones([
+        "RFC",
+        "INE",
+        "CURP",
+        "Acta de nacimiento"
+    ]);
+}
+
+// 🚀 Inicio
+window.onload = () => {
+    agregarMensaje("Hola 👋 soy tu asistente. ¿Qué trámite necesitas?", "bot");
+    sugerencias();
+}
+</script>
+
+</body>
+</html>
