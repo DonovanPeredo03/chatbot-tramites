@@ -1,0 +1,830 @@
+[
+  {
+  "nombre": "RFC",
+  "keywords": ["rfc", "sat", "constancia fiscal"],
+
+  "requisitos": [
+    "CURP",
+    "Identificación oficial",
+    "Comprobante de domicilio",
+    "Correo electrónico"
+  ],
+
+  "pasos": [
+    "Agendar cita en el SAT",
+    "Acudir a la oficina",
+    "Presentar documentos",
+    "Obtener constancia fiscal"
+  ],
+
+  "costo": "Gratuito",
+
+  "tiempo": "30 minutos aproximadamente",
+
+  "sitio": "https://www.sat.gob.mx",
+
+  "menorEdad": {
+
+    "requisitos": [
+      "CURP del menor",
+      "Acta de nacimiento",
+      "Identificación del padre o tutor",
+      "Comprobante de domicilio",
+      "Presencia del tutor legal"
+    ],
+
+    "pasos": [
+      "Agendar cita en SAT",
+      "Acudir acompañado del tutor",
+      "Presentar documentos",
+      "Obtener RFC"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "30 minutos aproximadamente"
+  }
+},
+
+  {
+  "nombre": "CURP",
+
+  "keywords": [
+    "curp",
+    "clave unica",
+    "clave única"
+  ],
+
+  "requisitos": [
+    "Nombre completo",
+    "Fecha de nacimiento",
+    "Entidad de nacimiento"
+  ],
+
+  "pasos": [
+    "Entrar al portal oficial de CURP",
+    "Ingresar datos personales",
+    "Consultar CURP",
+    "Descargar e imprimir documento"
+  ],
+
+  "costo": "Gratuito",
+
+  "tiempo": "5 minutos aproximadamente",
+
+  "sitio": "https://www.gob.mx/curp",
+
+  "correccion": {
+
+    "requisitos": [
+      "CURP actual",
+      "Acta de nacimiento",
+      "Documento con datos correctos"
+    ],
+
+    "pasos": [
+      "Acudir al registro civil",
+      "Solicitar corrección",
+      "Presentar documentos",
+      "Esperar actualización"
+    ],
+
+    "costo": "Generalmente gratuito",
+
+    "tiempo": "Variable según estado"
+  }
+},
+
+  {
+  "nombre": "INE",
+
+  "keywords": [
+    "ine",
+    "credencial",
+    "credencial de elector"
+  ],
+
+  "requisitos": [
+    "Acta de nacimiento",
+    "Comprobante de domicilio",
+    "Identificación con fotografía"
+  ],
+
+  "pasos": [
+    "Agendar cita en el INE",
+    "Acudir al módulo",
+    "Presentar documentos",
+    "Tomar fotografía y huellas",
+    "Recoger INE"
+  ],
+
+  "costo": "Gratuito",
+
+  "tiempo": "1 a 2 semanas aproximadamente",
+
+  "sitio": "https://www.ine.mx",
+
+  "renovacion": {
+
+    "requisitos": [
+      "INE vencida",
+      "Comprobante de domicilio"
+    ],
+
+    "pasos": [
+      "Agendar cita",
+      "Acudir al módulo",
+      "Actualizar datos",
+      "Recoger nueva INE"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "1 a 2 semanas"
+  },
+
+  "reposicion": {
+
+    "requisitos": [
+      "Acta de nacimiento",
+      "Comprobante de domicilio"
+    ],
+
+    "pasos": [
+      "Agendar cita",
+      "Reportar pérdida o robo",
+      "Presentar documentos",
+      "Recoger reposición"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "1 a 2 semanas"
+  }
+},
+
+{
+  "nombre": "Pasaporte",
+
+  "keywords": [
+    "pasaporte",
+    "viajar",
+    "sre"
+  ],
+
+  "requisitos": [
+    "Acta de nacimiento",
+    "Identificación oficial",
+    "CURP",
+    "Comprobante de pago"
+  ],
+
+  "pasos": [
+    "Agendar cita en la SRE",
+    "Realizar pago correspondiente",
+    "Acudir a la oficina",
+    "Presentar documentos",
+    "Recibir pasaporte"
+  ],
+
+  "costo": "Depende de la vigencia",
+
+  "tiempo": "Mismo día o algunos días",
+
+  "sitio": "https://www.gob.mx/pasaporte",
+
+  "menorEdad": {
+
+    "requisitos": [
+      "Acta de nacimiento del menor",
+      "CURP del menor",
+      "Identificación de ambos padres o tutores",
+      "Presencia del menor",
+      "Comprobante de pago"
+    ],
+
+    "pasos": [
+      "Agendar cita",
+      "Realizar pago",
+      "Acudir ambos padres con el menor",
+      "Presentar documentos",
+      "Recibir pasaporte"
+    ],
+
+    "costo": "Depende de la vigencia",
+
+    "tiempo": "Mismo día o algunos días"
+  },
+
+  "renovacion": {
+
+    "requisitos": [
+      "Pasaporte anterior",
+      "CURP",
+      "Comprobante de pago"
+    ],
+
+    "pasos": [
+      "Agendar cita",
+      "Realizar pago",
+      "Acudir a la oficina",
+      "Renovar documento"
+    ],
+
+    "costo": "Depende de la vigencia",
+
+    "tiempo": "Mismo día"
+  },
+
+"reposicion": {
+
+  "requisitos": [
+    "Acta de nacimiento",
+    "CURP",
+    "Identificación oficial",
+    "Reporte de extravío o robo",
+    "Comprobante de pago"
+  ],
+
+  "pasos": [
+    "Agendar cita en SRE",
+    "Reportar extravío o robo",
+    "Presentar documentos",
+    "Realizar pago",
+    "Recibir nuevo pasaporte"
+  ],
+
+  "costo": "Depende de la vigencia",
+
+  "tiempo": "Mismo día o algunos días"
+}
+},
+
+{
+  "nombre": "Acta de nacimiento",
+
+  "keywords": [
+    "acta",
+    "acta de nacimiento",
+    "registro civil"
+  ],
+
+  "requisitos": [
+    "CURP",
+    "Nombre completo",
+    "Fecha de nacimiento",
+    "Entidad de registro"
+  ],
+
+  "pasos": [
+    "Entrar al portal oficial",
+    "Ingresar datos personales",
+    "Buscar acta",
+    "Realizar pago",
+    "Descargar documento"
+  ],
+
+  "costo": "Depende del estado",
+
+  "tiempo": "5 a 10 minutos",
+
+  "sitio": "https://www.gob.mx/ActaNacimiento",
+
+  "correccion": {
+
+    "requisitos": [
+      "Acta con errores",
+      "Documentos correctos",
+      "Identificación oficial"
+    ],
+
+    "pasos": [
+      "Acudir al registro civil",
+      "Solicitar corrección",
+      "Presentar documentos",
+      "Esperar actualización"
+    ],
+
+    "costo": "Variable según estado",
+
+    "tiempo": "Variable"
+  },
+
+  "copiaCertificada": {
+
+    "requisitos": [
+      "CURP",
+      "Datos personales"
+    ],
+
+    "pasos": [
+      "Entrar al portal oficial",
+      "Buscar acta",
+      "Realizar pago",
+      "Descargar copia certificada"
+    ],
+
+    "costo": "Depende del estado",
+
+    "tiempo": "10 minutos"
+  }
+},
+
+{
+  "nombre": "Licencia de conducir",
+
+  "keywords": [
+    "licencia",
+    "licencia de conducir",
+    "manejar"
+  ],
+
+  "requisitos": [
+    "Identificación oficial",
+    "Comprobante de domicilio",
+    "CURP",
+    "Aprobar examen"
+  ],
+
+  "pasos": [
+    "Agendar cita",
+    "Presentar documentos",
+    "Realizar examen",
+    "Tomar fotografía",
+    "Recibir licencia"
+  ],
+
+  "costo": "Variable según estado",
+
+  "tiempo": "Mismo día",
+
+  "sitio": "https://www.gob.mx",
+
+  "renovacion": {
+
+    "requisitos": [
+      "Licencia vencida",
+      "Identificación oficial",
+      "Comprobante de domicilio"
+    ],
+
+    "pasos": [
+      "Agendar cita",
+      "Presentar documentos",
+      "Actualizar datos",
+      "Recibir licencia renovada"
+    ],
+
+    "costo": "Variable según estado",
+
+    "tiempo": "Mismo día"
+  },
+
+  "reposicion": {
+
+    "requisitos": [
+      "Identificación oficial",
+      "CURP",
+      "Comprobante de domicilio"
+    ],
+
+    "pasos": [
+      "Reportar pérdida",
+      "Agendar cita",
+      "Presentar documentos",
+      "Recibir reposición"
+    ],
+
+    "costo": "Variable según estado",
+
+    "tiempo": "Mismo día"
+  }
+},
+
+{
+  "nombre": "IMSS",
+
+  "keywords": [
+    "imss",
+    "nss",
+    "seguro social",
+    "numero de seguro social"
+  ],
+
+  "requisitos": [
+    "CURP",
+    "Correo electrónico",
+    "Identificación oficial"
+  ],
+
+  "pasos": [
+    "Entrar al portal oficial del IMSS",
+    "Ingresar CURP y correo",
+    "Generar NSS",
+    "Descargar documento"
+  ],
+
+  "costo": "Gratuito",
+
+  "tiempo": "5 a 10 minutos",
+
+  "sitio": "https://www.imss.gob.mx",
+
+  "consulta": {
+
+    "requisitos": [
+      "CURP",
+      "Correo electrónico"
+    ],
+
+    "pasos": [
+      "Entrar al portal del IMSS",
+      "Ingresar CURP",
+      "Consultar NSS",
+      "Descargar documento"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "5 minutos"
+  },
+
+  "alta": {
+
+    "requisitos": [
+      "NSS",
+      "CURP",
+      "Identificación oficial",
+      "Datos laborales"
+    ],
+
+    "pasos": [
+      "Ingresar al portal IMSS",
+      "Registrar datos laborales",
+      "Solicitar alta",
+      "Confirmar registro"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "10 a 20 minutos"
+  }
+},
+
+{
+  "nombre": "Cartilla militar",
+
+  "keywords": [
+    "cartilla",
+    "cartilla militar",
+    "servicio militar"
+  ],
+
+  "requisitos": [
+    "Acta de nacimiento",
+    "CURP",
+    "Comprobante de domicilio",
+    "Fotografías tamaño cartilla"
+  ],
+
+  "pasos": [
+    "Acudir a junta municipal de reclutamiento",
+    "Presentar documentos",
+    "Registrarse",
+    "Esperar fecha de sorteo"
+  ],
+
+  "costo": "Gratuito",
+
+  "tiempo": "Variable según convocatoria",
+
+  "sitio": "https://www.gob.mx/sedena",
+
+  "liberacion": {
+
+    "requisitos": [
+      "Cartilla militar",
+      "Identificación oficial"
+    ],
+
+    "pasos": [
+      "Acudir al módulo militar",
+      "Solicitar liberación",
+      "Presentar documentos",
+      "Esperar validación"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "Variable"
+  }
+},
+
+{
+  "nombre": "Visa americana",
+
+  "keywords": [
+    "visa",
+    "visa americana",
+    "embajada",
+    "consulado"
+  ],
+
+  "requisitos": [
+    "Pasaporte vigente",
+    "Fotografía",
+    "Formulario DS-160",
+    "Comprobante de pago"
+  ],
+
+  "pasos": [
+    "Llenar formulario DS-160",
+    "Realizar pago de visa",
+    "Crear cuenta en el sistema",
+    "Agendar cita",
+    "Acudir a entrevista"
+  ],
+
+  "costo": "Depende del tipo de visa",
+
+  "tiempo": "Variable según disponibilidad",
+
+  "sitio": "https://mx.usembassy.gov/es/visas-es/",
+
+  "renovacion": {
+
+    "requisitos": [
+      "Visa anterior",
+      "Pasaporte vigente",
+      "Formulario DS-160",
+      "Comprobante de pago"
+    ],
+
+    "pasos": [
+      "Actualizar DS-160",
+      "Realizar pago",
+      "Agendar cita",
+      "Acudir al CAS o entrevista"
+    ],
+
+    "costo": "Depende del tipo de visa",
+
+    "tiempo": "Variable"
+  },
+
+  "entrevista": {
+
+    "requisitos": [
+      "Pasaporte",
+      "Confirmación DS-160",
+      "Comprobante de cita"
+    ],
+
+    "pasos": [
+      "Llegar puntual",
+      "Presentar documentos",
+      "Responder preguntas del oficial",
+      "Esperar resultado"
+    ],
+
+    "costo": "Incluido en trámite",
+
+    "tiempo": "15 a 30 minutos"
+  }
+},
+
+{
+  "nombre": "Cédula profesional",
+
+  "keywords": [
+    "cedula",
+    "cédula",
+    "cedula profesional",
+    "profesional"
+  ],
+
+  "requisitos": [
+    "CURP",
+    "Firma electrónica",
+    "Título profesional registrado"
+  ],
+
+  "pasos": [
+    "Ingresar al portal oficial",
+    "Iniciar sesión",
+    "Registrar solicitud",
+    "Realizar pago",
+    "Descargar cédula digital"
+  ],
+
+  "costo": "Variable según nivel académico",
+
+  "tiempo": "Mismo día o algunos días",
+
+  "sitio": "https://www.gob.mx/cedulaprofesional",
+
+  "consulta": {
+
+    "requisitos": [
+      "Nombre completo",
+      "CURP"
+    ],
+
+    "pasos": [
+      "Entrar al portal oficial",
+      "Buscar cédula profesional",
+      "Consultar información"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "5 minutos"
+  },
+
+  "correccion": {
+
+    "requisitos": [
+      "Cédula profesional",
+      "Documentos correctos",
+      "Identificación oficial"
+    ],
+
+    "pasos": [
+      "Solicitar corrección",
+      "Presentar documentos",
+      "Esperar validación"
+    ],
+
+    "costo": "Variable",
+
+    "tiempo": "Variable"
+  }
+},
+
+{
+  "nombre": "SAT",
+
+  "keywords": [
+    "sat",
+    "e.firma",
+    "firma electronica",
+    "firma electrónica",
+    "contraseña sat"
+  ],
+
+  "requisitos": [
+    "RFC",
+    "CURP",
+    "Identificación oficial",
+    "Correo electrónico"
+  ],
+
+  "pasos": [
+    "Agendar cita",
+    "Acudir a oficina SAT",
+    "Presentar documentos",
+    "Generar acceso"
+  ],
+
+  "costo": "Gratuito",
+
+  "tiempo": "30 minutos aproximadamente",
+
+  "sitio": "https://www.sat.gob.mx",
+
+  "efirma": {
+
+    "requisitos": [
+      "RFC",
+      "USB",
+      "CURP",
+      "Identificación oficial",
+      "Correo electrónico"
+    ],
+
+    "pasos": [
+      "Agendar cita SAT",
+      "Acudir a oficina",
+      "Generar archivos .cer y .key",
+      "Crear contraseña"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "30 a 40 minutos"
+  },
+
+  "contrasena": {
+
+    "requisitos": [
+      "RFC",
+      "CURP",
+      "Correo electrónico"
+    ],
+
+    "pasos": [
+      "Ingresar al portal SAT",
+      "Solicitar generación de contraseña",
+      "Validar identidad",
+      "Crear contraseña"
+    ],
+
+    "costo": "Gratuito",
+
+    "tiempo": "10 minutos"
+  }
+},
+
+{
+  "nombre": "Placas vehiculares",
+
+  "keywords": [
+    "placas",
+    "placas vehiculares",
+    "tarjeta de circulacion",
+    "vehiculo"
+  ],
+
+  "requisitos": [
+    "Identificación oficial",
+    "Comprobante de domicilio",
+    "Factura del vehículo",
+    "Pago de derechos"
+  ],
+
+  "pasos": [
+    "Agendar cita",
+    "Presentar documentos",
+    "Realizar pago",
+    "Recibir placas"
+  ],
+
+  "costo": "Variable según estado",
+
+  "tiempo": "Mismo día o algunos días",
+
+  "sitio": "https://www.gob.mx",
+
+  "renovacion": {
+
+    "requisitos": [
+      "Placas anteriores",
+      "Tarjeta de circulación",
+      "Identificación oficial"
+    ],
+
+    "pasos": [
+      "Agendar cita",
+      "Realizar pago",
+      "Presentar documentos",
+      "Recibir nuevas placas"
+    ],
+
+    "costo": "Variable",
+
+    "tiempo": "Mismo día"
+  },
+
+  "reposicion": {
+
+    "requisitos": [
+      "Identificación oficial",
+      "Tarjeta de circulación",
+      "Reporte de pérdida"
+    ],
+
+    "pasos": [
+      "Reportar extravío",
+      "Agendar cita",
+      "Presentar documentos",
+      "Recibir reposición"
+    ],
+
+    "costo": "Variable",
+
+    "tiempo": "Mismo día"
+  },
+
+  "cambioPropietario": {
+
+    "requisitos": [
+      "Factura del vehículo",
+      "Identificación oficial",
+      "Comprobante de domicilio",
+      "Contrato de compra"
+    ],
+
+    "pasos": [
+      "Agendar cita",
+      "Presentar documentos",
+      "Realizar cambio",
+      "Recibir actualización"
+    ],
+
+    "costo": "Variable",
+
+    "tiempo": "Mismo día o algunos días"
+  }
+}
+
+]

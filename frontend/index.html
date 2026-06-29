@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente de Trámites</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+:root {
+            --bg-dark: #0f172a;
+            --chat-bg-dark: #1e293b;
+            --accent-purple: #6366f1;
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --user-msg: #4f46e5;
+            --bot-msg: #2d3748;
+            --border-chat: rgba(255, 255, 255, 0.1);
+            --border-bot: rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #e2e8f0; 
+            --chat-bg-dark: #f1f5f9; 
+            --accent-purple: #4f46e5;
+            --text-main: #0f172a;
+            --text-dim: #64748b;
+            --bot-msg: #ffffff; 
+            --border-chat: rgba(0, 0, 0, 0.15);
+            --border-bot: rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-main);
+        }
+
+     .chat-container {
+            width: 100%;
+            max-width: 480px;
+            height: 95vh;
+            background: var(--chat-bg-dark);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid var(--border-chat);
+        }
+
+    /* HEADER */
+            .header {
+                padding: 16px 20px;
+                background: rgba(30, 41, 59, 0.8);
+                /* Aplicamos el borde dinámico */
+                border-bottom: 1px solid var(--border-chat);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+        .estado-ia {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #10b981;
+        }
+
+        .punto-online {
+            width: 8px; height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* INFORMACIÓN DEL SISTEMA */
+        .toggle-stats {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border: none;
+            color: var(--text-dim);
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stats-grid {
+            display: none;
+            padding: 12px;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .stats-grid.mostrar { display: flex; }
+        
+        .stat-tag {
+            background: rgba(255,255,255,0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* CHAT BOX */
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: var(--bg-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* MENSAJES */
+        .mensaje {
+            max-width: 85%;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            word-wrap: break-word;
+            animation: aparecer 0.2s ease;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .usuario {
+            align-self: flex-end;
+            background: var(--user-msg);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot {
+                align-self: flex-start;
+                /* Corregido: llamamos a la variable real --bot-msg */
+                background: var(--bot-msg);
+                /* Aplicamos el borde dinámico del bot */
+                border: 1px solid var(--border-bot);
+                border-bottom-left-radius: 4px;
+         }
+
+        /* HERRAMIENTAS DE MENSAJE */
+        .msg-tools {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            flex-wrap: wrap;
+        }
+
+        .btn-tool {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-tool:hover {
+            background: var(--accent-purple);
+            transform: translateY(-1px);
+        }
+
+        /* ACCIONES RÁPIDAS DINÁMICAS */
+        .acciones-rapidas {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-rapido {
+            background: rgba(99, 102, 241, 0.15);
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-rapido:hover {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        /* SECCIONES DINÁMICAS */
+        .seccion {
+            background: rgba(99, 102, 241, 0.08);
+            border-left: 3px solid var(--accent-purple);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .seccion-titulo { color: var(--accent-purple); font-weight: 700; font-size: 12px; margin-bottom: 4px; }
+
+    /* FOOTER */
+            .footer {
+                padding: 20px;
+                background: var(--chat-bg-dark);
+                border-top: 1px solid var(--border-chat);
+            }
+
+            #selectorTramite {
+                width: 100%;
+                padding: 12px;
+                border-radius: 12px;
+                background: var(--bg-dark);
+                border: 1px solid var(--border-chat);
+                color: var(--text-main);
+                margin-bottom: 12px;
+                outline: none;
+                cursor: pointer;
+            }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-dark);
+            padding: 8px 12px;
+            border-radius: 16px;
+        }
+
+        #mensaje {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            outline: none;
+            font-size: 14px;
+        }
+
+        .btn-send {
+            background: var(--accent-purple);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-send:hover { opacity: 0.9; }
+
+        .preview-img { max-width: 100%; max-height: 200px; border-radius: 12px; margin-top: 8px; object-fit: cover; }
+        .hora { font-size: 10px; color: var(--text-dim); margin-top: 5px; text-align: right; }
+
+        /* ANIMACIÓN DE ESCRIBIENDO */
+        .typing { display: flex; gap: 5px; padding: 5px; align-items: center; }
+        .typing span { width: 8px; height: 8px; background: var(--text-dim); border-radius: 50%; animation: bounce 1.4s infinite; }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+        }
+
+        a { color: #a5b4fc; text-decoration: none; font-weight: 600; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+<header class="header">
+        <div>
+            <h2 style="font-size:1.1rem;">🤖 Asistente Trámites</h2>
+            <div class="estado-ia"><span class="punto-online"></span> IA documental activa</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <button style="background:none; border:none; color:white; cursor:pointer; font-size:18px;" onclick="toggleTema()" id="btnTema" title="Alternar tema">☀️</button>
+            <button style="background:none; border:none; color:white; cursor:pointer; font-size:18px;" onclick="limpiarChat()" title="Limpiar historial">🗑️</button>
+        </div>
+    </header>
+
+    <button class="toggle-stats" onclick="toggleStats()">ℹ Información del sistema</button>
+    <div class="stats-grid" id="stats">
+        <div class="stat-tag">Gemini IA</div>
+        <div class="stat-tag">v2.0 Responsivo</div>
+        <div class="stat-tag">Secure Docs</div>
+    </div>
+
+    <div id="chat" class="chat-box"></div>
+
+    <footer class="footer">
+        <select id="selectorTramite" onchange="seleccionarTramite()">
+            <option value="">📂 Selecciona un trámite</option>
+            <option>RFC</option>
+            <option>CURP</option>
+            <option>INE</option>
+            <option>Acta de nacimiento</option>
+            <option>Pasaporte</option>
+            <option>Licencia</option>
+            <option>IMSS</option>
+            <option>Cartilla militar</option>
+            <option>Visa americana</option>
+            <option>Cédula profesional</option>
+            <option>SAT</option>
+            <option>Placas vehiculares</option>
+        </select>
+
+        <div class="input-wrapper">
+            <input type="file" id="fileInput" accept="image/*,.pdf" hidden onchange="procesarArchivo(event)">
+            <button style="background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:18px;" onclick="document.getElementById('fileInput').click()" title="Adjuntar documento">📎</button>
+            <input id="mensaje" placeholder="Escribe un mensaje..." autocomplete="off">
+            <button class="btn-send" onclick="enviar()">Enviar</button>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // --- UTILIDADES ---
+    function hora() {
+        return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+
+    function toggleStats() { 
+        document.getElementById('stats').classList.toggle('mostrar'); 
+    }
+
+    // --- CARGA INICIAL ---
+// --- CARGA INICIAL ---
+    window.onload = () => {
+        // Cargar tema guardado
+        if (localStorage.getItem('tema') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('btnTema').innerText = '🌙';
+        }
+
+        const hist = localStorage.getItem('chatHTML');
+        if (hist) {
+            document.getElementById('chat').innerHTML = hist;
+            document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+        } else {
+            agregarMensaje("Hola 👋 soy tu asistente. ¿Qué trámite necesitas?", "bot");
+        }
+    };
+
+    // --- EFECTO ESCRIBIENDO ---
+    function escribiendo() {
+        const chat = document.getElementById('chat');
+        const div = document.createElement('div');
+        div.className = 'mensaje bot';
+        div.id = 'typing';
+        div.innerHTML = `<div class="typing"><span></span><span></span><span></span></div>`;
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    function quitarEscribiendo() {
+        const typing = document.getElementById('typing');
+        if (typing) typing.remove();
+    }
+
+    // --- ESCRITURA ANIMADA ---
+    function escribirTexto(elemento, textoHTML, velocidad = 10) {
+
+    // Convertimos HTML a texto temporalmente
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = textoHTML;
+
+    const textoPlano = tempDiv.innerText;
+
+    let i = 0;
+
+    const intervalo = setInterval(() => {
+
+        elemento.textContent = textoPlano.substring(0, i);
+
+        i++;
+
+        const chat = document.getElementById('chat');
+        chat.scrollTop = chat.scrollHeight;
+
+        if (i > textoPlano.length) {
+
+            clearInterval(intervalo);
+
+            // Al terminar restauramos HTML bonito
+            elemento.innerHTML = textoHTML;
+
+            localStorage.setItem(
+                'chatHTML',
+                document.getElementById('chat').innerHTML
+            );
+        }
+
+    }, velocidad);
+}
+
+    // --- AGREGAR MENSAJE AL DOM ---
+    function agregarMensaje(texto, tipo) {
+        if (texto === null || texto === undefined) return;
+        texto = String(texto);
+        
+        // Evitamos renderizar la marca interna en el historial visual
+        if (texto === '[DOCUMENTO]') return;
+
+        const chat = document.getElementById('chat');
+        const div = document.createElement('div');
+        div.className = `mensaje ${tipo}`;
+        
+        const textoLower = texto.toLowerCase();
+
+        // Formateo de saltos de línea y enlaces
+ // 1. Convertimos primero las URLs a enlaces con un color morado claro y en negrita
+        let textoFormateado = texto
+            .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: #a5b4fc; text-decoration: underline; font-weight: bold;">$1</a>')
+            .replace(/\n{2,}/g, '<br><br>')
+            .replace(/\n/g, '<br>');
+
+        // Formateo de tarjetas/secciones automáticas
+        textoFormateado = textoFormateado
+            .replace(/✅ Requisitos:/g, '<div class="seccion"><div class="seccion-titulo">✅ Requisitos</div>')
+            .replace(/📍 Pasos:/g, '</div><div class="seccion"><div class="seccion-titulo">📍 Pasos</div>')
+            .replace(/💰 Costo:/g, '</div><div class="seccion"><div class="seccion-titulo">💰 Costo</div>')
+            .replace(/⏱️ Tiempo:/g, '</div><div class="seccion"><div class="seccion-titulo">⏱️ Tiempo</div>')
+            .replace(/📌 Consejo:/g, '</div><div class="seccion"><div class="seccion-titulo">📌 Consejo</div>')
+            .replace(/🌐 Sitio oficial:/g, '</div><div class="seccion"><div class="seccion-titulo">🌐 Sitio oficial</div>');
+
+        if (textoLower.includes('✅ requisitos:')) {
+            textoFormateado += '</div>';
+        }
+
+        div.innerHTML = `<div class="contenido"></div><div class="hora">${hora()}</div>`;
+        const contenido = div.querySelector('.contenido');
+
+        // 2. CORRECCIÓN: Hacemos que el bot use el textoFormateado para que se vean los enlaces
+    if (tipo === 'bot') {
+    escribirTexto(contenido, textoFormateado, 4);
+} else {
+    contenido.innerHTML = textoFormateado;
+}
+
+        // Agregar botones de Voz y PDF si el mensaje es extenso
+        if (tipo === 'bot' && texto.length > 180 && !textoLower.includes('📌 también podrías')) {
+            const toolsDiv = document.createElement('div');
+            toolsDiv.className = 'msg-tools';
+            
+            const pdfBtn = document.createElement('button');
+            pdfBtn.className = 'btn-tool';
+            pdfBtn.innerHTML = '📄 Descargar PDF';
+            pdfBtn.onclick = () => descargarPDF(texto);
+            
+            const vozBtn = document.createElement('button');
+            vozBtn.className = 'btn-tool';
+            vozBtn.innerHTML = '🔊 Escuchar Voz';
+            vozBtn.onclick = () => toggleVoz(texto, vozBtn);
+
+            toolsDiv.appendChild(pdfBtn);
+            toolsDiv.appendChild(vozBtn);
+            div.appendChild(toolsDiv);
+        }
+
+        // Agregar botones de acciones rápidas
+        if (tipo === 'bot' && textoLower.includes('✅ requisitos:') && textoLower.includes('📍 pasos') && !textoLower.includes('📌 también podrías') && !textoLower.includes('súper fácil')) {
+            const acciones = document.createElement('div');
+            acciones.className = 'acciones-rapidas';
+
+            ['Requisitos', 'Costo', 'Tiempo', 'Sitio oficial'].forEach(textoBtn => {
+                const btn = document.createElement('button');
+                btn.innerText = textoBtn;
+                btn.className = 'btn-rapido';
+                btn.onclick = () => enviar(textoBtn);
+                acciones.appendChild(btn);
+            });
+            div.appendChild(acciones);
+        }
+
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
+
+        if (tipo === 'usuario') {
+            localStorage.setItem('chatHTML', chat.innerHTML);
+        }
+    }
+
+    // --- LÓGICA DE ENVÍO AL SERVIDOR ---
+    async function enviar(textoManual = null) {
+        const input = document.getElementById('mensaje');
+        const texto = textoManual || input.value;
+        const fileInput = document.getElementById('fileInput');
+        const archivo = fileInput.files[0];
+
+        if (!texto && !archivo) return;
+
+        if (texto && !textoManual?.includes('[DOCUMENTO]')) {
+            agregarMensaje(texto, 'usuario');
+        } else if (archivo) {
+            agregarMensaje('📎 Documento enviado', 'usuario');
+        }
+
+        input.value = '';
+        escribiendo();
+
+        try {
+            const formData = new FormData();
+            formData.append('mensaje', texto || '[DOCUMENTO]');
+            if (archivo) {
+                formData.append('archivo', archivo);
+            }
+
+            const res = await fetch('http://localhost:3000/chat', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!res.ok) throw new Error('Error en servidor');
+            const data = await res.json();
+
+            quitarEscribiendo();
+
+            if (data && data.respuesta) {
+                agregarMensaje(data.respuesta, 'bot');
+                
+                if (typeof data.respuesta === 'string' && !data.respuesta.includes('¿')) {
+                    mostrarRecomendaciones(data.respuesta);
+                }
+            } else {
+                agregarMensaje('⚠ No hubo respuesta del servidor.', 'bot');
+            }
+
+            // Reiniciar input de archivo
+            fileInput.value = '';
+        } catch (error) {
+            console.error('ERROR FRONT:', error);
+            quitarEscribiendo();
+            agregarMensaje('⚠ Ocurrió un error al procesar la solicitud.', 'bot');
+        }
+    }
+
+    // --- RECOMENDACIONES AUTOMÁTICAS ---
+    function mostrarRecomendaciones(texto) {
+        const textoLower = texto.toLowerCase();
+        let recomendacion = '';
+
+        if (textoLower.includes('pasaporte')) {
+            recomendacion = '📌 También podrías necesitar CURP e identificación vigente.';
+        } else if (textoLower.includes('visa')) {
+            recomendacion = '📌 Verifica que tu pasaporte esté vigente antes de solicitar visa.';
+        } else if (textoLower.includes('rfc')) {
+            recomendacion = '📌 También podrías necesitar una cita SAT o e.firma.';
+        } else if (textoLower.includes('imss')) {
+            recomendacion = '📌 Recuerda tener tu NSS y CURP actualizados.';
+        }
+
+        if (recomendacion) {
+            setTimeout(() => {
+                agregarMensaje(recomendacion, 'bot');
+            }, 700);
+        }
+    }
+
+    // --- EVENTOS Y SELECCIÓN ---
+    document.getElementById('mensaje').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            enviar();
+        }
+    });
+
+    function seleccionarTramite() {
+        const selector = document.getElementById('selectorTramite');
+        if (selector.value) {
+            enviar(`Quiero información sobre ${selector.value}`);
+            selector.value = "";
+        }
+    }
+
+    // --- ARCHIVOS ---
+    function procesarArchivo(evento) {
+        const archivo = evento.target.files[0];
+        if (!archivo) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const chat = document.getElementById('chat');
+            const div = document.createElement('div');
+            div.className = 'mensaje usuario';
+
+            if (archivo.type === 'application/pdf') {
+                div.innerHTML = `<div style="text-align: center; font-size: 40px;">📄</div><div style="text-align:center; font-size:11px; margin-top:4px;">PDF seleccionado</div>`;
+            } else {
+                div.innerHTML = `<img src="${e.target.result}" class="preview-img">`;
+            }
+
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+
+            agregarMensaje('🔍 Analizando documento...', 'bot');
+            setTimeout(() => enviar('[DOCUMENTO]'), 1200);
+        };
+        reader.readAsDataURL(archivo);
+    }
+
+    // --- MICRÓFONO Y SÍNTESIS DE VOZ ---
+    function hablarEntrada() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Tu navegador no soporta el reconocimiento de voz.");
+            return;
+        }
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'es-MX';
+        recognition.start();
+        recognition.onresult = function(event) {
+            document.getElementById('mensaje').value = event.results[0][0].transcript;
+            enviar();
+        };
+    }
+
+    let hablando = false;
+    function toggleVoz(texto, btn) {
+        if (hablando) {
+            speechSynthesis.cancel();
+            hablando = false;
+            btn.innerHTML = '🔊 Escuchar Voz';
+            return;
+        }
+        const textoLimpio = texto.replace(/[\u{1F300}-\u{1FAFF}]/gu, '');
+        const voz = new SpeechSynthesisUtterance(textoLimpio);
+        voz.lang = 'es-MX';
+        hablando = true;
+        btn.innerHTML = '⏹️ Detener Voz';
+        voz.onend = () => {
+            hablando = false;
+            btn.innerHTML = '🔊 Escuchar Voz';
+        };
+        speechSynthesis.speak(voz);
+    }
+
+    // --- DESCARGAR PDF ---
+    function descargarPDF(texto) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const textoLimpio = texto.replace(/[\u{1F300}-\u{1FAFF}]/gu, '');
+        const lineas = doc.splitTextToSize(textoLimpio, 180);
+        doc.setFontSize(12);
+        doc.text(lineas, 10, 20);
+        doc.save('tramite.pdf');
+    }
+
+    // --- LIMPIAR CHAT ---
+    function limpiarChat() {
+        if (confirm("¿Deseas borrar el historial del chat?")) {
+            localStorage.removeItem('chatHTML');
+            const chat = document.getElementById('chat');
+            chat.innerHTML = '';
+            agregarMensaje('Hola 👋 soy tu asistente. ¿Qué trámite necesitas?', 'bot');
+        }
+    }
+
+    // --- ALTERNAR TEMA CLARO/OSCURO ---
+    function toggleTema() {
+        const esClaro = document.documentElement.getAttribute('data-theme') === 'light';
+        if (esClaro) {
+            document.documentElement.removeAttribute('data-theme');
+            document.getElementById('btnTema').innerText = '☀️';
+            localStorage.setItem('tema', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('btnTema').innerText = '🌙';
+            localStorage.setItem('tema', 'light');
+        }
+    }
+</script>
+</body>
+</html>
