@@ -1,390 +1,218 @@
-# Asistente Inteligente de Trámites Gubernamentales
+# Government Services AI Assistant
 
-Un asistente virtual desarrollado con **Node.js**, **Express** y **Google Gemini AI** que permite consultar información sobre trámites gubernamentales en México mediante Inteligencia Artificial.
+An AI-powered virtual assistant developed with **Node.js**, **Express**, and **Google Gemini AI** to help users obtain information about government procedures in Mexico through natural language conversations.
 
-El proyecto combina procesamiento de lenguaje natural, una interfaz web moderna y herramientas de accesibilidad para facilitar la consulta de información oficial.
-
----
-
-# Descripción
-
-El objetivo de este proyecto es proporcionar una plataforma donde los usuarios puedan obtener información clara y organizada sobre diferentes trámites gubernamentales sin necesidad de navegar por múltiples sitios web.
-
-El asistente interpreta las preguntas del usuario utilizando **Google Gemini AI**, consulta información estructurada y responde de manera natural, además de incorporar funciones que mejoran la experiencia de uso como conversión de texto a voz, descarga en PDF e historial de conversación.
+The application combines artificial intelligence, a RESTful backend, accessibility features, and a responsive web interface to provide an intuitive user experience.
 
 ---
 
-# Características
+## Features
 
-## Inteligencia Artificial
-
-- Integración con Google Gemini AI.
-- Comprensión de lenguaje natural.
-- Detección automática de intención.
-- Respuestas inteligentes.
-- Consultas dinámicas sobre trámites.
-
----
-
-## Gestión de trámites
-
-- Consulta de distintos trámites gubernamentales.
-- Información organizada por pasos.
-- Enlaces hacia páginas oficiales.
-- Selección rápida de trámites mediante menú desplegable.
+- AI-powered conversations using Google Gemini
+- Natural language understanding
+- Government procedures consultation
+- Intelligent intent detection
+- Conversation history
+- PDF export
+- Text-to-Speech support
+- Dark and Light themes
+- Responsive user interface
+- Quick access menu for government services
 
 ---
 
-## Experiencia de usuario
+## Tech Stack
 
-- 🌙 Modo oscuro.
-- ☀️ Modo claro.
-- Historial de conversación.
-- Eliminación del historial del chat.
-- Interfaz moderna y responsiva.
-- Indicador visual del estado de la IA.
-
----
-
-## Accesibilidad
-
-- Conversión de texto a voz mediante Speech Synthesis API.
-- Lectura automática de las respuestas del asistente.
+| Category | Technologies |
+|----------|--------------|
+| **Frontend** | HTML5, CSS3, JavaScript |
+| **Backend** | Node.js, Express.js |
+| **Artificial Intelligence** | Google Gemini API |
+| **File Upload** | Multer |
+| **Configuration** | dotenv |
+| **Accessibility** | Speech Synthesis API |
+| **Utilities** | CORS |
 
 ---
 
-## Exportación
+## Technical Highlights
 
-- Descarga de respuestas en formato PDF.
-- Conservación del contenido generado por la IA.
-
----
-
-## Procesamiento de documentos
-
-El sistema incluye la estructura necesaria para permitir el análisis de documentos PDF.
-
-**Estado actual**
-
-Funcionalidad parcialmente implementada.
-
-Actualmente permite preparar la carga del documento, pero la integración completa con el análisis mediante IA se encuentra pendiente de desarrollo.
+- Integrated Google Gemini API for AI-powered conversations.
+- Designed a modular backend architecture using Express.js.
+- Implemented intent detection for more accurate responses.
+- Added conversation history management.
+- Implemented PDF export for AI-generated responses.
+- Integrated browser Text-to-Speech functionality.
+- Developed a responsive interface with dark and light themes.
+- Designed the application following a service-oriented architecture.
 
 ---
 
-# Funcionalidades implementadas
+## Architecture
 
-| Funcionalidad | Estado |
-|---------------|:------:|
-| Consultas mediante IA | ✅ |
-| Integración con Google Gemini | ✅ |
-| Historial del chat | ✅ |
-| Eliminar historial | ✅ |
-| Texto a voz | ✅ |
-| Descargar PDF | ✅ |
-| Selección rápida de trámites | ✅ |
-| Modo claro / oscuro | ✅ |
-| Procesamiento de PDF | 🚧 En desarrollo |
-
----
-
-# Tecnologías utilizadas
-
-## Backend
-
-- Node.js
-- Express
-- Google Gemini API
-- Multer
-- Dotenv
-- CORS
-
-## Frontend
-
-- HTML5
-- CSS3
-- JavaScript
-
-## APIs
-
-- Google Gemini API
-- Speech Synthesis API
-
----
-
-# Arquitectura del proyecto
-
+```text
+                 User
+                   │
+                   ▼
+        HTML • CSS • JavaScript
+                   │
+             HTTP Requests
+                   │
+                   ▼
+             Express Backend
+                   │
+      ┌────────────┼────────────┐
+      ▼            ▼            ▼
+ Chat Service  Intent Service  Vision Service
+      │            │            │
+      └────────────┼────────────┘
+                   ▼
+             Gemini Service
+                   │
+                   ▼
+          Google Gemini API
 ```
+
+---
+
+## Project Structure
+
+```text
 chatbot-tramites/
-
 │
-
 ├── backend/
-
 │   ├── src/
-
 │   │   ├── controllers/
-
 │   │   ├── routes/
-
 │   │   ├── services/
-
 │   │   ├── middlewares/
-
 │   │   └── data/
-
 │   │
-
 │   ├── uploads/
-
 │   ├── .env.example
-
 │   ├── package.json
-
 │   └── index.js
-
 │
-
 ├── frontend/
-
 │   └── index.html
-
 │
-
 └── README.md
 ```
 
 ---
 
-# Arquitectura de funcionamiento
+## Screenshots
 
-```
-                  Usuario
-                      │
-                      ▼
-           Frontend (HTML, CSS, JS)
-                      │
-                Solicitudes HTTP
-                      │
-                      ▼
-              Express (Backend)
-                      │
-        ┌─────────────┼─────────────┐
-        ▼             ▼             ▼
- ChatService   IntentService   VisionService
-        │             │             │
-        └─────────────┼─────────────┘
-                      ▼
-               GeminiService
-                      │
-                      ▼
-             Google Gemini API
-```
+### Home
+
+![Home](docs/inicio.png)
+
+AI assistant home interface.
 
 ---
 
-# Estructura del Backend
+### Chat
 
-## Controllers
+![Chat](docs/chat.png)
 
-Controlan la lógica de las solicitudes HTTP.
-
-```
-chatController.js
-```
+Conversation with the AI assistant about government procedures.
 
 ---
 
-## Routes
+### PDF Export
 
-Definen los endpoints del sistema.
+![PDF Export](docs/pdf.png)
 
-```
-chatRoutes.js
-```
+Export AI-generated responses as PDF documents.
 
 ---
 
-## Services
+### Light Theme
 
-Contienen la lógica principal del chatbot.
+![Light Theme](docs/tema-claro.png)
 
-```
-chatService.js
-detectorService.js
-geminiService.js
-intentService.js
-visionService.js
-```
+Responsive interface with Light and Dark mode support.
 
 ---
 
-## Data
+## Getting Started
 
-Información utilizada por el asistente.
-
-```
-datos.json
-tramites.json
-```
-
----
-
-# Instalación
-
-## 1. Clonar el repositorio
+### Clone the Repository
 
 ```bash
 git clone https://github.com/DonovanPeredo03/chatbot-tramites.git
-```
-
-Entrar al proyecto
-
-```bash
 cd chatbot-tramites
 ```
 
----
-
-## 2. Instalar dependencias
+### Install Dependencies
 
 ```bash
 cd backend
 npm install
 ```
 
----
+### Configure Environment Variables
 
-## 3. Configurar variables de entorno
-
-Crear un archivo
-
-```
-.env
-```
-
-utilizando como referencia
-
-```
-.env.example
-```
-
-Ejemplo
+Create a `.env` file using `.env.example` as reference.
 
 ```env
 PORT=3000
-GEMINI_API_KEY=TU_API_KEY
+GEMINI_API_KEY=YOUR_API_KEY
 ```
 
----
-
-## 4. Ejecutar el servidor
+### Start the Backend
 
 ```bash
 node index.js
 ```
 
-El backend iniciará en
+The server will run at:
 
 ```
 http://localhost:3000
 ```
 
----
+### Run the Frontend
 
-## 5. Ejecutar el Frontend
-
-Abrir el archivo
+Open:
 
 ```
 frontend/index.html
 ```
 
-utilizando **Live Server** o cualquier servidor estático.
+using **Live Server** or any static web server.
 
 ---
 
-# Variables de entorno
+## Environment Variables
 
-| Variable | Descripción |
-|-----------|-------------|
-| PORT | Puerto donde se ejecuta Express |
-| GEMINI_API_KEY | API Key de Google Gemini |
-
----
-
-# Capturas
-
-## Pantalla principal
-
-<img width="497" height="996" alt="image" src="https://github.com/user-attachments/assets/7be39e52-32ac-40f4-be0d-f55119ae10d2" />
-
-
-```
-docs/inicio.png
-```
+| Variable | Description |
+|----------|-------------|
+| PORT | Express server port |
+| GEMINI_API_KEY | Google Gemini API Key |
 
 ---
 
-## Consulta de un trámite
+## Future Improvements
 
-<img width="525" height="1007" alt="image" src="https://github.com/user-attachments/assets/07533585-01c4-4b7e-a263-68fa69815db1" />
-
-
-```
-docs/chat.png
-```
-
----
-
-## Descarga de PDF
-
-<img width="141" height="65" alt="image" src="https://github.com/user-attachments/assets/d2698a79-d4b4-4182-b6fb-92b9ca1637e0" />
-
-
-```
-docs/pdf.png
-```
+- Intelligent PDF document analysis
+- User authentication
+- Database integration for conversation history
+- Voice recognition
+- Multi-language support
+- Multi-document processing
+- Vector database integration for Retrieval-Augmented Generation (RAG)
 
 ---
 
-## Cambio de tema
-
-<img width="57" height="42" alt="image" src="https://github.com/user-attachments/assets/0371f0ab-2f93-4d71-8903-dfdbd05ce190" />
-
-<img width="516" height="1005" alt="image" src="https://github.com/user-attachments/assets/2f873dd1-09e3-442e-9eb2-faec679ececb" />
-
-
-```
-docs/tema-claro.png
-```
-
----
-
-# Mejoras futuras
-
-- Completar el análisis inteligente de documentos PDF.
-- Implementar autenticación de usuarios.
-- Integrar una base de datos para almacenar conversaciones.
-- Incorporar más trámites gubernamentales.
-- Añadir soporte para múltiples idiomas.
-- Mejorar la accesibilidad mediante reconocimiento de voz.
-- Implementar carga de múltiples documentos.
-
----
-
-# Autor
+## Author
 
 **Samuel Donovan Peredo Jiménez**
 
-Estudiante de Ingeniería en Ciencias Computacionales
+Computer Science Student  
+University of Guadalajara (UDG)
 
-Universidad de Guadalajara
+**Backend Development • Artificial Intelligence • Data Intelligence**
 
-GitHub:
-
-https://github.com/DonovanPeredo03
-
----
-
-
+- GitHub: https://github.com/DonovanPeredo03
+- LinkedIn: https://www.linkedin.com/in/samuel-donovan-peredo-jimenez-16275b385/
