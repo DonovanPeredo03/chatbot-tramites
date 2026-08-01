@@ -113,7 +113,7 @@ AI assistant home interface.
 
 ### Chat
 
-![Chat](docs/chat.png)
+<img width="525" height="1007" alt="image" src="https://github.com/user-attachments/assets/07533585-01c4-4b7e-a263-68fa69815db1" />
 
 Conversation with the AI assistant about government procedures.
 
@@ -121,7 +121,7 @@ Conversation with the AI assistant about government procedures.
 
 ### PDF Export
 
-![PDF Export](docs/pdf.png)
+<img width="141" height="65" alt="image" src="https://github.com/user-attachments/assets/d2698a79-d4b4-4182-b6fb-92b9ca1637e0" />
 
 Export AI-generated responses as PDF documents.
 
@@ -129,7 +129,7 @@ Export AI-generated responses as PDF documents.
 
 ### Light Theme
 
-![Light Theme](tema-claro.png)
+<img width="57" height="42" alt="image" src="https://github.com/user-attachments/assets/0371f0ab-2f93-4d71-8903-dfdbd05ce190" /> <img width="516" height="1005" alt="image" src="https://github.com/user-attachments/assets/2f873dd1-09e3-442e-9eb2-faec679ececb" />
 
 Responsive interface with Light and Dark mode support.
 
