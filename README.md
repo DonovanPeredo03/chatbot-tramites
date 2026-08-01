@@ -129,7 +129,7 @@ Export AI-generated responses as PDF documents.
 
 ### Light Theme
 
-![Light Theme](docs/tema-claro.png)
+![Light Theme](tema-claro.png)
 
 Responsive interface with Light and Dark mode support.
 
