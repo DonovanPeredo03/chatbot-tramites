@@ -105,7 +105,7 @@ chatbot-tramites/
 
 ### Home
 
-![Home](docs/inicio.png)
+<img width="497" height="996" alt="image" src="https://github.com/user-attachments/assets/7be39e52-32ac-40f4-be0d-f55119ae10d2" />
 
 AI assistant home interface.
 
