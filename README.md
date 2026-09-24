@@ -208,6 +208,7 @@ using **Live Server** or any static web server.
 ## Author
 
 **Samuel Donovan Peredo Jiménez**
+**Marcos Esquivel Galvan**
 
 Computer Science Student  
 University of Guadalajara (UDG)
@@ -216,3 +217,5 @@ University of Guadalajara (UDG)
 
 - GitHub: https://github.com/DonovanPeredo03
 - LinkedIn: https://www.linkedin.com/in/samuel-donovan-peredo-jimenez-16275b385/
+
+- GitHub: https://github.com/MarcosE934
