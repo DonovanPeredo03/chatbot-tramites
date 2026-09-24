@@ -208,7 +208,8 @@ using **Live Server** or any static web server.
 ## Authors
 
 **Samuel Donovan Peredo Jiménez**
-/**Marcos Esquivel Galvan**
+
+**Marcos Esquivel Galvan**
 
 Computer Science Student  
 University of Guadalajara (UDG)
