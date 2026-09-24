@@ -205,7 +205,7 @@ using **Live Server** or any static web server.
 
 ---
 
-## Author
+## Authors
 
 **Samuel Donovan Peredo Jiménez**
 **Marcos Esquivel Galvan**
